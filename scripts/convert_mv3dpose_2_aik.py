@@ -1,3 +1,5 @@
+raise NotImplementedError("Nope")
+
 import sys
 import json
 from os.path import isdir, isfile, join, basename, normpath
@@ -34,7 +36,6 @@ print('\tcopy videos....')
 video_dir_src = join(dataset_path, 'videos')
 # video_dir_dst = join(output_path, 'videos')
 # copy_tree(video_dir_src, video_dir_dst)
-
 
 
 print('\nconversion finished\n')
