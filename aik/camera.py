@@ -41,6 +41,7 @@ class Camera:
         """
         :param points3d: [n x 3]
         """
+        points3d = np.array(points3d, dtype=np.float64)
         if len(points3d.shape) == 1:
             points3d = np.expand_dims(points3d, axis=0)
         pts2d, _ = cv2.projectPoints(points3d, self.rvec, self.tvec, self.K, self.dist_coef)
