@@ -3,7 +3,7 @@
 ## Install
 This library requires numpy and OpenCV3
 ```bash
-pip install git+https://github.com/jutanke/aik.git
+pip install git+https://github.com/actions-in-kitchens/aik.git
 ```
 
 ## Usage
