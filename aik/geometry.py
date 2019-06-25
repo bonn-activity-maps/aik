@@ -17,6 +17,21 @@ def triangulate(point1, point2, cam1, cam2):
     return point3d[0:3]
 
 
+def compute_epiline(point1, cam1, cam2):
+    """ computes the epiline ax + by + c = 0
+    :param point1: [x, y]
+    :param cam1: source camera
+    :param cam2: target camera
+    """
+    point1 = np.array(point1, np.float64)
+    if len(point1.shape) == 1:
+        point1 = np.expand_dims(point1, axis=0)
+    F = get_fundamental_matrix(cam1, cam2)
+
+    epiline = np.squeeze(cv2.computeCorrespondEpilines(point1, 1, F))
+    return epiline
+    
+
 def get_fundamental_matrix(cam1, cam2):
     """ finds the fundamental matrix between two views
     :param P1: {3x4} projection matrix
