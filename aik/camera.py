@@ -1,8 +1,23 @@
 import numpy as np
 import cv2
+import json
 
 
 class Camera:
+
+    @staticmethod
+    def from_json(json_str):
+        """
+        """
+        obj = json.loads(json_str)
+        K = np.array(obj['K'], np.float64)
+        rvec = np.array(obj['rvec'], np.float64)
+        tvec = np.array(obj['tvec'], np.float64)
+        dist_coef = np.array(obj['dist_coef'], np.float64)
+        w = obj['w']
+        h = obj['h']
+        cam = Camera(K, rvec, tvec, dist_coef, w, h)
+        return cam
 
     def __init__(self, K, rvec, tvec, dist_coef, w, h):
         """
@@ -35,7 +50,17 @@ class Camera:
         """ return the camera position in world coordinates
         """
         return self.pos
-
+    
+    def to_json(self):
+        obj = {
+            'K': self.K.tolist(),
+            'rvec': self.rvec.tolist(),
+            'tvec': self.tvec.tolist(),
+            'dist_coef': self.dist_coef.tolist(),
+            'w': self.w,
+            'h': self.h
+        }
+        return json.dumps(obj)
     
     def project_points(self, points3d):
         """
