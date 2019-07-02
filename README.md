@@ -53,4 +53,12 @@ x1 = 1600
 y1 = y(x1, *epiline)
 
 # The line passing through (x0, y0) and (x1, y1) is the epipolar line
+
+# Serialization:
+json_str = cam1.to_json()
+
+# De-Serialization:
+from aik.camera import Camera
+cam_new = Camera.from_json(json_str)
+
 ```
