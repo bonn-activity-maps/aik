@@ -23,6 +23,9 @@ Images, Cameras = aik.get_frame(frame)
 # len(Images) == n_cameras
 # len(Cameras) == n_cameras
 
+# Load image path' instead of images. Paths are rooted at the dataset folder
+Paths, Cameras = aik.get_frame(frame, return_paths=True)
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # project a 3D point onto a camera
 pt3d = [0, 0, 0]
