@@ -44,17 +44,22 @@ class AIK:
                 for frame in range(start_frame, end_frame+1):
                     self.frame_camera_lookup[frame, cid] = cam
 
-    def get_frame(self, frame):
+    def get_frame(self, frame, return_paths=False):
         """ get all images and cams for a given frame
         """
         assert frame in self.valid_frames_lookup, 'non-valid frame:' + str(frame)
         images = []
         cameras = []
         for cid in range(self.n_cameras):
-            local_vid_dir = join(self.video_loc, 'camera%02d' % cid)
-            im_file = join(local_vid_dir, 'frame%09d.png' % frame)
-            im = cv2.cvtColor(cv2.imread(im_file), cv2.COLOR_BGR2RGB)
-            images.append(im)
+            if return_paths:
+                fname = join('camera%02d' % cid, 'frame%09d.png' % frame)
+                fname = join('videos', fname)
+                images.append(fname)
+            else:
+                local_vid_dir = join(self.video_loc, 'camera%02d' % cid)
+                im_file = join(local_vid_dir, 'frame%09d.png' % frame)
+                im = cv2.cvtColor(cv2.imread(im_file), cv2.COLOR_BGR2RGB)
+                images.append(im)
             cam = self.frame_camera_lookup[frame, cid]
             cameras.append(cam)
         
