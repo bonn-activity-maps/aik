@@ -21,6 +21,11 @@ class AIK:
 
         dataset = json.load(open(dataset_file))
 
+        if 'image_extension' in dataset:
+            self.image_extension = dataset['image_extension']
+        else:
+            self.image_extension = 'png'
+
         self.n_cameras = dataset['n_cameras']
         self.scale_to_mm = dataset['scale_to_mm']
         self.valid_frames = dataset['valid_frames']
@@ -52,15 +57,14 @@ class AIK:
         cameras = []
         for cid in range(self.n_cameras):
             if return_paths:
-                fname = join('camera%02d' % cid, 'frame%09d.png' % frame)
+                fname = join('camera%02d' % cid, ('frame%09d.' + self.image_extension) % frame)
                 fname = join('videos', fname)
                 images.append(fname)
             else:
                 local_vid_dir = join(self.video_loc, 'camera%02d' % cid)
-                im_file = join(local_vid_dir, 'frame%09d.png' % frame)
+                im_file = join(local_vid_dir, ('frame%09d.' + self.image_extension) % frame)
                 im = cv2.cvtColor(cv2.imread(im_file), cv2.COLOR_BGR2RGB)
                 images.append(im)
             cam = self.frame_camera_lookup[frame, cid]
             cameras.append(cam)
-        
         return images, cameras

@@ -1,4 +1,5 @@
 {
-    "dataset": "/home/tanke/Data/datasets/actions_in_kitchens/examples/aik_aik_behnke",
+    "dataset_old": "/home/tanke/Data/datasets/actions_in_kitchens/examples/aik_aik_behnke",
+    "dataset": "/home/tanke/Data/datasets/actions_in_kitchens/190502_unroll",
     "n_cameras": 12
 }
