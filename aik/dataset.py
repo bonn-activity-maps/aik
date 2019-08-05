@@ -28,7 +28,12 @@ class AIK:
 
         self.n_cameras = dataset['n_cameras']
         self.scale_to_mm = dataset['scale_to_mm']
-        self.valid_frames = dataset['valid_frames']
+        if 'valid_frames' in dataset:
+            self.valid_frames = dataset['valid_frames']
+        else:
+            start_frame = dataset['start_frame']
+            end_frame = dataset['end_frame']
+            self.valid_frames = list(range(start_frame, end_frame + 1))
         self.valid_frames_lookup = set(self.valid_frames)
 
         self.frame_camera_lookup = {}
