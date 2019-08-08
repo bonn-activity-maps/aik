@@ -17,6 +17,27 @@ def triangulate(point1, point2, cam1, cam2):
     return point3d[0:3]
 
 
+def triangulate_multiple(points, cams):
+    """ triangulate all points with each other and take the avg point
+    :param points: list([ (x,y), (x,y), ...  ])
+    :param cams: list([{cam}, {cam}])
+    """
+    assert len(points) == len(cams), 'number of points and cameras must agree!'
+    n_cameras = len(points)
+    assert n_cameras >= 2, 'number of cameras must be 1 < but was ' + str(n_cameras)
+    pts3d = []
+    for cid1 in range(n_cameras-1):
+        for cid2 in range(cid1+1, n_cameras):
+            cam1 = cams[cid1]
+            cam2 = cams[cid2]
+            point1 = points[cid1]
+            point2 = points[cid2]
+            p3d = triangulate(point1, point2, cam1, cam2)
+            pts3d.append(p3d)
+    pt3d = np.mean(pts3d, axis=0)
+    return pt3d
+
+
 def compute_epiline(point1, cam1, cam2):
     """ computes the epiline ax + by + c = 0
     :param point1: [x, y]
